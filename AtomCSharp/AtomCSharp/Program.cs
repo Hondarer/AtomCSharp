@@ -462,12 +462,12 @@ namespace AtomCSharp
         /// <summary>
         /// アトムの最小値を表します。
         /// </summary>
-        const int ATOM_MIN = 0xC000;
+        const int ATOM_MIN = 0xc000;
 
         /// <summary>
         /// アトムの最大値を表します。
         /// </summary>
-        const int ATOM_MAX = 0xFFFF;
+        const int ATOM_MAX = 0xffff;
 
         /// <summary>
         /// グローバルアトムの基本情報を定義します。
@@ -584,9 +584,11 @@ namespace AtomCSharp
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            // ATOM は ushort だが、for 文の終了条件を成立させるために int で宣言
+            // (ushort 0xffff の次は 0 になり、抜けられない)
             int atom = 0;
 
-            Console.WriteLine("Scope\tAtom\tReferenceCount\tName");
+            Console.WriteLine("\"Scope\"\t\"Atom\"\t\"ReferenceCount\"\t\"Name\"");
 
             // Global
             for (atom = ATOM_MIN; atom <= ATOM_MAX; atom++)
@@ -594,7 +596,7 @@ namespace AtomCSharp
                 AtomBasicInformation info = NtQueryBasicInformation((ushort)atom);
                 if (info != null)
                 {
-                    Console.WriteLine("Global\t0x{0:x4}\t{1}\t{2}", atom, info.ReferenceCount, info.Name);
+                    Console.WriteLine("\"Global\"\t0x{0:x4}\t{1}\t\"{2}\"", atom, info.ReferenceCount, info.Name);
                 }
             }
 
@@ -604,7 +606,7 @@ namespace AtomCSharp
                 string name = UserGetName((ushort)atom);
                 if (string.IsNullOrEmpty(name) != true)
                 {
-                    Console.WriteLine("User\t0x{0:x4}\t\t{1}", atom, name);
+                    Console.WriteLine("\"User\"\t0x{0:x4}\t\t\"{1}\"", atom, name);
                 }
             }
 
@@ -614,7 +616,7 @@ namespace AtomCSharp
                 string name = LocalGetName((ushort)atom);
                 if (string.IsNullOrEmpty(name) != true)
                 {
-                    Console.WriteLine("Local\t0x{0:x4}\t\t{1}", atom, name);
+                    Console.WriteLine("\"Local\"\t0x{0:x4}\t\t\"{1}\"", atom, name);
                 }
             }
         }
