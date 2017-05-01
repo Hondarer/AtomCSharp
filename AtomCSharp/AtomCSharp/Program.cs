@@ -547,7 +547,7 @@ namespace AtomCSharp
         /// <summary>
         /// ユーザーアトムの名称を取得します。
         /// </summary>
-        /// <param name="atom">取得したい文字列を保持しているユーザーアトムを指定します。</param>
+        /// <param name="format">取得したい文字列を保持しているユーザーアトムを指定します。</param>
         /// <returns>ユーザーアトムの名称。</returns>
         public static string UserGetName(ushort format)
         {
